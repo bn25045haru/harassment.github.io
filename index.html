@@ -3,248 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harassment Insight SNS</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ハラスメントSNS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <i class="fas fa-handshake logo-icon"></i> </div>
-            <nav class="sidebar-nav">
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo" width="40">
+                ハラスメントSNS
+            </div>
+            <div class="sidebar-nav">
                 <ul>
-                    <li><a href="#" data-section="home"><i class="fas fa-home"></i> <span>ホーム</span></a></li>
-                    <li><a href="#" data-section="dm"><i class="fas fa-envelope"></i> <span>DM</span></a></li>
-                    <li><a href="#" data-section="diagnosis"><i class="fas fa-question-circle"></i> <span>ハラスメント診断</span></a></li>
-                    <li><a href="#" data-section="healing"><i class="fas fa-heartbeat"></i> <span>治癒</span></a></li>
-                    <li><a href="#" data-section="profile"><i class="fas fa-user"></i> <span>プロフィール</span></a></li>
-                    <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> <span>設定</span></a></li>
+                    <li>
+                        <a href="#" data-section="home-section" class="active">
+                            <i class="fas fa-home"></i>ホーム
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="register-section">
+                            <i class="fas fa-user-plus"></i>新規登録
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="diagnosis-section">
+                            <i class="fas fa-heartbeat"></i>ハラスメント診断
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="dm-section">
+                            <i class="fas fa-envelope"></i>DM
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="search-section">
+                            <i class="fas fa-search"></i>検索
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="notifications-section">
+                            <i class="fas fa-bell"></i>通知
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="profile-section">
+                            <i class="fas fa-user"></i>プロフィール
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-section="settings-section">
+                            <i class="fas fa-cog"></i>設定
+                        </a>
+                    </li>
                 </ul>
-            </nav>
-            <button class="post-button">ハラスメントを投稿</button>
-            <div class="user-profile-card">
-                <img src="https://via.placeholder.com/40/1da1f2/ffffff?text=U" alt="User Avatar" class="avatar-small">
-                <div class="user-info">
-                    <span class="user-name">安全な匿名</span>
-                    <span class="user-handle">@anonymous_user</span>
+            </div>
+            <button class="tweet-button">投稿する</button>
+            <div class="user-profile-small">
+                <img src="images/avatar.png" alt="User Avatar" class="avatar-small">
+                <div class="user-info-small">
+                    <span class="display-name-small">テストユーザー</span>
+                    <span class="username-small">@testuser</span>
                 </div>
                 <i class="fas fa-ellipsis-h"></i>
             </div>
-        </aside>
+        </div>
 
-        <main class="main-content">
-            <section id="home-section" class="content-section active">
-                <header class="main-header">
+        <div class="main-content">
+            <div id="home-section" class="content-section active">
+                <div class="content-header">
                     <h2>ホーム</h2>
-                </header>
-
+                </div>
                 <div class="post-form-container">
-                    <div class="post-form-header">
-                        <img src="https://via.placeholder.com/48/1da1f2/ffffff?text=U" alt="User Avatar" class="avatar-large">
-                        <textarea class="post-textarea" placeholder="受けたハラスメントの内容を投稿してください。具体的な状況を詳しく書くと、客観的な判断が得やすくなります。"></textarea>
-                    </div>
-                    <div class="post-form-actions">
-                        <div class="icons">
-                            <i class="fas fa-image"></i>
-                            <i class="fas fa-file-alt"></i>
-                            <i class="fas fa-tag"></i>
-                        </div>
-                        <button class="submit-post-button">投稿</button>
-                    </div>
+                    <img src="images/avatar.png" alt="User Avatar" class="avatar-large">
+                    <textarea id="post-textarea" class="post-textarea" placeholder="ハラスメントの内容を投稿してください..."></textarea>
+                    <button id="submit-post-button" class="submit-post-button">投稿</button>
                 </div>
-
-                <div class="separator"></div>
-
-                <div class="posts-list" id="postsList">
-                    <div class="post-item">
-                        <img src="https://via.placeholder.com/48/5b7083/ffffff?text=A" alt="User Avatar" class="avatar-large">
-                        <div class="post-content">
-                            <div class="post-header">
-                                <span class="display-name">匿名ユーザー1</span>
-                                <span class="username">@user_xyz</span>
-                                <span class="timestamp">・ 3時間前</span>
-                            </div>
-                            <p class="post-text">職場の上司から「お前は本当に使えない」と毎日言われます。これもパワハラでしょうか？</p>
-                            <div class="post-feedback">
-                                <span class="feedback-score"><i class="fas fa-chart-line"></i> ハラスメント度: 85%</span>
-                                <div class="feedback-source">AI判断: 該当する可能性が高い</div>
-                            </div>
-                            <div class="post-actions">
-                                <span class="action-item"><i class="far fa-comment"></i> 15</span>
-                                <span class="action-item"><i class="far fa-thumbs-up"></i> 45</span>
-                                <span class="action-item"><i class="far fa-thumbs-down"></i> 3</span>
-                                <span class="action-item"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
+                <div id="posts-list" class="posts-list">
                     </div>
+            </div>
 
-                    <div class="post-item">
-                        <img src="https://via.placeholder.com/48/5b7083/ffffff?text=B" alt="User Avatar" class="avatar-large">
-                        <div class="post-content">
-                            <div class="post-header">
-                                <span class="display-name">匿名ユーザー2</span>
-                                <span class="username">@user_abc</span>
-                                <span class="timestamp">・ 1日前</span>
-                            </div>
-                            <p class="post-text">友人から、私のSNS投稿が「気持ち悪い」と言われました。どう対応したらいいですか？</p>
-                            <div class="post-feedback">
-                                <span class="feedback-score"><i class="fas fa-chart-line"></i> ハラスメント度: 60%</span>
-                                <div class="feedback-source">AI判断: 状況によるが、精神的苦痛を与える可能性あり</div>
-                            </div>
-                            <div class="post-actions">
-                                <span class="action-item"><i class="far fa-comment"></i> 8</span>
-                                <span class="action-item"><i class="far fa-thumbs-up"></i> 20</span>
-                                <span class="action-item"><i class="far fa-thumbs-down"></i> 1</span>
-                                <span class="action-item"><i class="fas fa-share-alt"></i></span>
-                            </div>
-                        </div>
-                    </div>
+            <div id="register-section" class="content-section">
+                <div class="content-header">
+                    <h2>新規登録</h2>
                 </div>
-            </section>
-
-            <section id="dm-section" class="content-section">
-                <header class="main-header">
-                    <h2>DM (カウンセラー・AIからのアドバイス)</h2>
-                </header>
-                <div class="dm-container">
-                    <div class="dm-list">
-                        <h3>会話リスト</h3>
-                        <ul>
-                            <li class="dm-list-item active">
-                                <img src="https://via.placeholder.com/40/007bff/ffffff?text=AI" alt="AI Avatar" class="avatar-small">
-                                <div class="dm-info">
-                                    <span class="dm-sender">AIアドバイザー</span>
-                                    <span class="dm-preview">最近の投稿についてアドバイスがあります。</span>
-                                </div>
-                            </li>
-                            <li class="dm-list-item">
-                                <img src="https://via.placeholder.com/40/28a745/ffffff?text=C" alt="Counselor Avatar" class="avatar-small">
-                                <div class="dm-info">
-                                    <span class="dm-sender">カウンセラー 田中</span>
-                                    <span class="dm-preview">相談内容について、私にできることがあれば…</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="chat-window">
-                        <div class="chat-header">
-                            <img src="https://via.placeholder.com/40/007bff/ffffff?text=AI" alt="AI Avatar" class="avatar-small">
-                            <span>AIアドバイザー</span>
-                        </div>
-                        <div class="chat-messages">
-                            <div class="message received">
-                                <img src="https://via.placeholder.com/30/007bff/ffffff?text=AI" alt="AI Avatar" class="avatar-small">
-                                <p>ご投稿拝見しました。具体的な状況をお聞かせいただけますか？</p>
-                            </div>
-                            <div class="message sent">
-                                <p>はい、職場の〇〇という部署で、毎日〇〇という言葉を言われます。</p>
-                                <img src="https://via.placeholder.com/30/1da1f2/ffffff?text=U" alt="User Avatar" class="avatar-small">
-                            </div>
-                            <div class="message received">
-                                <img src="https://via.placeholder.com/30/007bff/ffffff?text=AI" alt="AI Avatar" class="avatar-small">
-                                <p>それは精神的苦痛を与える可能性があり、パワハラに該当する可能性が高いです。具体的な対応策をいくつか提案できます。</p>
-                            </div>
-                        </div>
-                        <div class="chat-input-area">
-                            <textarea placeholder="メッセージを入力"></textarea>
-                            <button><i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </div>
+                <div class="register-form-container">
+                    <input type="text" id="register-username" placeholder="ユーザー名" required>
+                    <input type="email" id="register-email" placeholder="メールアドレス" required>
+                    <input type="password" id="register-password" placeholder="パスワード" required>
+                    <button id="register-submit-button" class="submit-post-button">登録</button>
                 </div>
-            </section>
+            </div>
 
-            <section id="diagnosis-section" class="content-section">
-                <header class="main-header">
+            <div id="diagnosis-section" class="content-section">
+                <div class="content-header">
                     <h2>ハラスメント診断</h2>
-                </header>
-                <div class="diagnosis-container">
-                    <p>いくつかの質問に答えることで、あなたが受けた行為がハラスメントに該当するかどうかを客観的に診断します。</p>
-                    <button class="start-diagnosis-button">診断を開始する</button>
-                    <div class="diagnosis-questions" style="display: none;">
-                        <h3>質問1: その行為は継続的に行われていますか？</h3>
-                        <label><input type="radio" name="q1" value="yes"> はい</label><br>
-                        <label><input type="radio" name="q1" value="no"> いいえ</label><br>
-                        <p style="margin-top: 20px; color: #888;">(ここにアンケート形式の質問が続きます)</p>
-                        <button class="submit-diagnosis-button">診断結果を見る</button>
-                    </div>
                 </div>
-            </section>
-
-            <section id="healing-section" class="content-section">
-                <header class="main-header">
-                    <h2>治癒 (カウンセラー紹介・落ち着かせる方法)</h2>
-                </header>
-                <div class="healing-container">
-                    <h3>カウンセラー紹介</h3>
-                    <p>あなたのお悩みに合った専門のカウンセラーをご紹介します。オンラインカウンセリングも可能です。</p>
-                    <div class="counselor-list">
-                        <div class="counselor-card">
-                            <img src="https://via.placeholder.com/80/28a745/ffffff?text=C" alt="Counselor Photo" class="counselor-photo">
-                            <h4>田中 恵子</h4>
-                            <p>専門分野: パワハラ、モラハラ、ストレスマネジメント</p>
-                            <p>実績: 10年以上の臨床経験</p>
-                            <button class="contact-counselor-button">相談する</button>
-                        </div>
-                        <div class="counselor-card">
-                            <img src="https://via.placeholder.com/80/ffc107/ffffff?text=C" alt="Counselor Photo" class="counselor-photo">
-                            <h4>山田 健太</h4>
-                            <p>専門分野: セクハラ、いじめ、メンタルヘルス</p>
-                            <p>実績: 若年層の相談に定評あり</p>
-                            <button class="contact-counselor-button">相談する</button>
-                        </div>
-                    </div>
-
-                    <h3 style="margin-top: 30px;">心を落ち着かせる方法</h3>
-                    <p>ストレスや不安を感じたときに実践できる、簡単で効果的なリラックス方法をご紹介します。</p>
-                    <ul>
-                        <li>深呼吸エクササイズ</li>
-                        <li>簡単なストレッチ</li>
-                        <li>瞑想（マインドフルネス）ガイド</li>
-                        <li>自然の音を聞く</li>
-                        <li>専門機関への相談窓口</li>
-                    </ul>
-                    <button class="more-healing-tips-button">さらに詳しく</button>
+                <div class="diagnosis-intro">
+                    <p>このセクションでは、あなたの文章がハラスメントに該当するかどうかをAIが診断します。</p>
+                    <p>診断を開始するには、下のボタンをクリックしてください。</p>
+                    <button class="start-diagnosis-button">診断を開始</button>
                 </div>
-            </section>
+                <div class="diagnosis-questions" style="display: none;">
+                    <h3>診断質問</h3>
+                    <p>診断したい内容を入力してください。</p>
+                    <textarea id="diagnosis-textarea" class="post-textarea" placeholder="診断したい内容を入力してください..."></textarea>
+                    <button class="submit-diagnosis-button">診断する</button>
+                </div>
+                <div class="diagnosis-results" style="display: none;">
+                    <h3>診断結果</h3>
+                    <p id="diagnosis-score">診断スコア: -</p>
+                    <p id="diagnosis-feedback">フィードバック: -</p>
+                </div>
+            </div>
 
-            <section id="profile-section" class="content-section">
-                <header class="main-header">
+            <div id="dm-section" class="content-section">
+                <div class="content-header">
+                    <h2>DM</h2>
+                </div>
+                <div class="dm-list">
+                    <p>DM機能はまだ実装されていません。</p>
+                </div>
+                <div class="dm-chat" style="display: none;">
+                    </div>
+            </div>
+
+            <div id="search-section" class="content-section">
+                <div class="content-header">
+                    <h2>検索</h2>
+                </div>
+                <input type="text" placeholder="ユーザーや投稿を検索...">
+                <div class="search-results">
+                    <p>検索機能はまだ実装されていません。</p>
+                </div>
+            </div>
+
+            <div id="notifications-section" class="content-section">
+                <div class="content-header">
+                    <h2>通知</h2>
+                </div>
+                <div class="notification-list">
+                    <p>通知機能はまだ実装されていません。</p>
+                </div>
+            </div>
+
+            <div id="profile-section" class="content-section">
+                <div class="content-header">
                     <h2>プロフィール</h2>
-                </header>
-                <div class="profile-container">
-                    <p>ここにユーザーのプロフィール情報が表示されます。</p>
-                    <p>投稿履歴、設定などが管理できます。</p>
                 </div>
-            </section>
+                <div class="user-profile-details">
+                    <p>プロフィール機能はまだ実装されていません。</p>
+                </div>
+            </div>
 
-            <section id="settings-section" class="content-section">
-                <header class="main-header">
+            <div id="settings-section" class="content-section">
+                <div class="content-header">
                     <h2>設定</h2>
-                </header>
-                <div class="settings-container">
-                    <p>ここにアプリの設定項目が表示されます。</p>
-                    <p>プライバシー設定、通知設定など。</p>
                 </div>
-            </section>
-
-        </main>
-
-        <aside class="right-sidebar">
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="キーワード検索">
+                <div class="app-settings">
+                    <p>設定機能はまだ実装されていません。</p>
+                </div>
             </div>
-            <div class="trends-for-you">
-                <h3>ハラスメント関連ニュース</h3>
-                <ul>
-                    <li><a href="#">職場でのハラスメント事例が増加</a></li>
-                    <li><a href="#">オンラインハラスメントへの対策</a></li>
-                    <li><a href="#">相談窓口の利用状況</a></li>
-                    <li><a href="#">メンタルヘルスケアの重要性</a></li>
-                </ul>
-            </div>
-        </aside>
+        </div>
     </div>
 
     <script src="script.js"></script>
