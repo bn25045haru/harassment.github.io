@@ -497,4 +497,64 @@ body {
         width: 100%; /* モバイルでは全幅 */
         align-self: center; /* 中央揃え */
     }
+
+    /* ログインフォームのスタイル (新規登録フォームと似ています) */
+.login-form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.login-form-container input[type="email"],
+.login-form-container input[type="password"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.login-form-container input[type="email"]:focus,
+.login-form-container input[type="password"]:focus {
+    outline: none;
+    border-color: #4F46E5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.login-form-container .submit-post-button {
+    width: auto;
+    align-self: flex-end;
+}
+
+.login-form-container .switch-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.login-form-container .switch-link a {
+    color: #4F46E5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-form-container .switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* モバイル対応 (login-form-containerもregister-form-containerと同様に調整) */
+@media (max-width: 768px) {
+    .login-form-container {
+        padding: 15px;
+    }
+    .login-form-container .submit-post-button {
+        width: 100%;
+        align-self: center;
+    }
+}
+
 }
