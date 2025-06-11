@@ -29,15 +29,16 @@
             <i class="fas fa-sign-in-alt"></i>ログイン
         </a>
     </li>
-    <li id="nav-logout-li" style="display: none;"> <a href="#" id="nav-logout-link"> <i class="fas fa-sign-out-alt"></i>ログアウト
-        </a>
-    </li>
+
     <li>
         <a href="#" data-section="diagnosis-section">
             <i class="fas fa-stethoscope"></i>ハラスメント診断
         </a>
     </li>
     </ul>
+        <li id="nav-logout-li" style="display: none;"> <a href="#" id="nav-logout-link"> <i class="fas fa-sign-out-alt"></i>ログアウト
+        </a>
+    </li>
             </div>
             <button class="tweet-button">投稿する</button>
             <div class="user-profile-small">
@@ -89,26 +90,332 @@
             </div>
 
             <div id="diagnosis-section" class="content-section">
-                <div class="content-header">
-                    <h2>ハラスメント診断</h2>
-                </div>
-                <div class="diagnosis-intro">
-                    <p>このセクションでは、あなたの文章がハラスメントに該当するかどうかをAIが診断します。</p>
-                    <p>診断を開始するには、下のボタンをクリックしてください。</p>
-                    <button class="start-diagnosis-button">診断を開始</button>
-                </div>
-                <div class="diagnosis-questions" style="display: none;">
-                    <h3>診断質問</h3>
-                    <p>診断したい内容を入力してください。</p>
-                    <textarea id="diagnosis-textarea" class="post-textarea" placeholder="診断したい内容を入力してください..."></textarea>
-                    <button class="submit-diagnosis-button">診断する</button>
-                </div>
-                <div class="diagnosis-results" style="display: none;">
-                    <h3>診断結果</h3>
-                    <p id="diagnosis-score">診断スコア: -</p>
-                    <p id="diagnosis-feedback">フィードバック: -</p>
+    <h2>ハラスメント診断</h2>
+    <div class="diagnosis-intro">
+        <p>この診断では、様々な状況に対するあなたの反応を通して、ハラスメントに対する感受性や傾向を自己診断します。</p>
+        <p>各質問について、「1: 無理」「2: 少し無理」「3: 割と平気」「4: 平気」の中から、最も当てはまるものを選んでください。</p>
+        <button class="start-diagnosis-button button-primary">診断を開始する</button>
+    </div>
+
+    <div class="diagnosis-questions" style="display:none;">
+        <form id="harassment-diagnosis-form">
+            <div class="question-block">
+                <p>1. 友達や先輩から「胸 (体型) 大きい」 「色っぽい」などと言われても平気だと思う。*</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q1" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q1" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q1" value="4"> 4: 平気</label>
                 </div>
             </div>
+
+            <div class="question-block">
+                <p>2. SNSで自分の外見に対して性的なコメントをされても、あまり気にしない。*</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q2" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q2" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q2" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>3. 異性の友達に性的な冗談を言われても、笑って流せる方だ。</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q3" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q3" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q3" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>4. 教員や年上の人に体を褒められても、「褒められた」と受け取ることがある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q4" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q4" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q4" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>5. 飲み会や合宿で下ネタが出ても、場を壊さずに対応できる自信がある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q5" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q5" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q5" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>6. 恋愛経験について聞かれても、不快にならずに答えられる。</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q6" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q6" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q6" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>7. 露出の多い服装をしている友人がいても、不快には思わない。*</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q7" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q7" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q7" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>8. セクハラっぽいLINEが来ても、スルーして終わらせられると思う。</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q8" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q8" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q8" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>9. セクハラに近いことがあっても、多少は我慢すべきだと思うことがある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q9" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q9" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q9" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>10. 好きでもない人に「かわいい」 「かっこいい」と言われても、気にならない。</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q10" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q10" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q10" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>11. 部活やサークルで先輩に怒鳴られても、「仕方ない」と思うことがある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q11" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q11" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q11" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>12. 指示が曖昧でも、自分で考えて動くのが当たり前だと思っている。</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q12" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q12" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q12" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>13. 先生や指導教官が厳しい言葉を使っても、それが普通だと思う。</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q13" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q13" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q13" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>14. ミスを責められても、自分の成長だと捉えられる方だ。</p>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q14" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q14" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q14" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>15. 厳しい上下関係は、ある程度必要だと考える。</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q15" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q15" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q15" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>16. 理不尽なルールがあっても、とりあえず従うのが無難だと思う。</p>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q16" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q16" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q16" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>17. 大きな声やきつい指摘にも動じない自信がある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q17" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q17" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q17" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>18. 失敗して怒られても、立ち直りは早い方だと思う。</p>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q18" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q18" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q18" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>19. 自分が悪くなくても謝ることが必要な場面はあると思う。</p>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q19" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q19" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q19" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>20. 精神的にキツい場面があっても、周囲に相談しないことが多い。</p>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q20" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q20" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q20" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>21. 友達や恋人に無視されても、あまり気にしないタイプだ。</p>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q21" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q21" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q21" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>22. 何気ない言葉で否定されても、「そういう考え方もある」と受け流せる。</p>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q22" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q22" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q22" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>23. 人から「お前ってダメだよな」と言われても、自分の自信は失わない。</p>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q23" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q23" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q23" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>24. 自分の意見を押しつけられても、割と合わせてしまうことがある。</p>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q24" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q24" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q24" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>25. 一方的に決められたことにも、反発せずに従うことが多い。</p>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q25" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q25" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q25" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>26. 友人に距離を取られても、「まぁ仕方ないか」と思える。</p>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q26" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q26" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q26" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>27. ネチネチ文句を言われても、感情的にならずに対応できる。</p>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q27" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q27" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q27" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>28. 恋人や友人の気分次第で態度が変わっても、振り回されない。</p>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q28" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q28" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q28" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>29. 感情的な圧力 (泣く・怒る)で話を進められても、冷静でいられる。</p>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q29" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q29" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q29" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>30. 他人の評価に振り回されることは少ない方だと思う</p>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="1" required> 1: 無理</label>
+                    <label><input type="radio" name="q30" value="2"> 2: 少し無理</label>
+                    <label><input type="radio" name="q30" value="3"> 3: 割と平気</label>
+                    <label><input type="radio" name="q30" value="4"> 4: 平気</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <p>31. 最後に感想、</p>
+                <textarea id="diagnosis-textarea" class="post-textarea" placeholder="診断に関する感想やコメントを自由にご記入ください。"></textarea>
+            </div>
+
+            <button type="submit" class="submit-diagnosis-button button-primary">診断する</button>
+            <button type="reset" class="button-secondary">リセット</button>
+        </form>
+    </div>
+
+    <div class="diagnosis-results" style="display:none;">
+        <h3>診断結果</h3>
+        <p id="diagnosis-score">診断スコア: -</p>
+        <p id="diagnosis-feedback">フィードバック: -</p>
+        <button class="retake-diagnosis-button button-primary">もう一度診断する</button>
+    </div>
+</div>
 
             <div id="dm-section" class="content-section">
                 <div class="content-header">

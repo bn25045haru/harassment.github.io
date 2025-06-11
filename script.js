@@ -406,22 +406,121 @@ if (submitDiagnosisButton) {
         const textToDiagnose = diagnosisTextarea.value.trim();
         if (textToDiagnose) {
             // ここにAI診断APIへのリクエストロジックを実装
-            // 今はダミーの結果を表示
-            const score = Math.floor(Math.random() * 100); // 0-99 のランダムスコア
-            let feedback = 'この内容はハラスメントの可能性は低いです。';
-            if (score > 70) {
-                feedback = 'この内容はハラスメントの可能性が高いです。言葉遣いに注意しましょう。';
-            } else if (score > 40) {
-                feedback = 'この内容はハラスメントの可能性があるため、表現に配慮が必要です。';
+            // --- ハラスメント診断機能 ---
+const startDiagnosisButton = document.querySelector('.start-diagnosis-button');
+const submitDiagnosisButton = document.querySelector('.submit-diagnosis-button');
+const retakeDiagnosisButton = document.querySelector('.retake-diagnosis-button'); // 追加
+const harassmentDiagnosisForm = document.getElementById('harassment-diagnosis-form'); // 追加
+const diagnosisIntro = document.querySelector('.diagnosis-intro');
+const diagnosisQuestions = document.querySelector('.diagnosis-questions');
+const diagnosisResults = document.querySelector('.diagnosis-results');
+const diagnosisTextarea = document.getElementById('diagnosis-textarea'); // 感想用
+const diagnosisScoreElement = document.getElementById('diagnosis-score'); // 変更
+const diagnosisFeedbackElement = document.getElementById('diagnosis-feedback'); // 変更
+
+// 各質問の選択肢に割り当てる点数 (例: 1:4点, 2:3点, 3:2点, 4:1点)
+// 点数が高いほど「ハラスメントと認識しにくい」または「ハラスメントを許容しやすい」傾向とします。
+// 診断の意図に合わせてこの点数を調整してください。
+const scoreMap = {
+    '1': 4,
+    '2': 3,
+    '3': 2,
+    '4': 1
+};
+
+// 診断結果のフィードバックメッセージ
+// 合計スコアの範囲に応じてメッセージを定義
+// 各質問のスコアは最大4点、最小1点。30問あるので、最小30点、最大120点。
+const feedbackRanges = [
+    { threshold: 100, message: "ハラスメントに対して非常に鈍感な可能性があります。周囲の言動にハラスメントが含まれていないか、今一度注意深く見直すことをお勧めします。自分では気づかないうちに、ハラスメントの加害者になっている可能性も考慮し、より安全なコミュニケーションを心がけましょう。", title: "危険レベル！" },
+    { threshold: 80, message: "ハラスメントに対する感受性が低い傾向があります。不快な言動を我慢したり、仕方ないと捉えたりする傾向があるかもしれません。自分の心を守るために、不快に感じた言動には適切な対処を考えることが重要です。", title: "要注意レベル" },
+    { threshold: 60, message: "ハラスメントに対する感受性は平均的ですが、一部の言動を見過ごしてしまう可能性があります。自分自身や周囲のハラスメント行為に気づき、より意識的に対応することで、より良い環境を築くことができます。", title: "意識レベル" },
+    { threshold: 30, message: "ハラスメントに対して非常に敏感で、不快な言動を的確に認識する能力が高いです。自分の心を守る意識が高く、ハラスメントを許容しない姿勢は素晴らしいです。その感受性を活かし、周囲のハラスメント防止にも貢献できるでしょう。", title: "安全レベル" }
+];
+
+
+if (startDiagnosisButton) {
+    startDiagnosisButton.addEventListener('click', () => {
+        diagnosisIntro.style.display = 'none';
+        diagnosisQuestions.style.display = 'block';
+        diagnosisResults.style.display = 'none';
+        harassmentDiagnosisForm.reset(); // フォームをリセット
+    });
+}
+
+if (submitDiagnosisButton) {
+    submitDiagnosisButton.addEventListener('click', (e) => {
+        e.preventDefault(); // デフォルトのフォーム送信を防ぐ
+
+        let totalScore = 0;
+        let answeredQuestions = 0;
+        
+        // 全ての質問をループして回答と点数を集計
+        for (let i = 1; i <= 30; i++) {
+            const questionName = `q${i}`;
+            const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+
+            if (selectedOption) {
+                totalScore += scoreMap[selectedOption.value];
+                answeredQuestions++;
+            } else {
+                alert(`質問${i}に回答してください。`);
+                return; // 未回答の質問があればここで処理を中断
             }
+        }
 
-            diagnosisScore.textContent = `診断スコア: ${score}点`;
-            diagnosisFeedback.textContent = `フィードバック: ${feedback}`;
+        // 全ての質問に回答しているか確認
+        if (answeredQuestions < 30) {
+            // このチェックは上のループで既に処理されているが、念のため残すこともできる
+            alert('全ての質問に回答してください。');
+            return;
+        }
 
-            diagnosisQuestions.style.display = 'none';
-            diagnosisResults.style.display = 'block';
-        } else {
-            alert('診断したい内容を入力してください。');
+        // スコアとフィードバックを表示
+        diagnosisScoreElement.textContent = `診断スコア: ${totalScore}点`;
+
+        let feedbackMessage = "診断結果がありません。";
+        let feedbackTitle = "不明";
+
+        // スコアに応じたフィードバックを決定
+        // スコアが高いほど閾値が高い（ハラスメントに鈍感）というロジックなので、
+        // 閾値の高いものから順にチェックしていく
+        for (const range of feedbackRanges) {
+            if (totalScore >= range.threshold) {
+                feedbackMessage = range.message;
+                feedbackTitle = range.title;
+                break; // 該当する最初の範囲で終了
+            }
+        }
+        
+        // 感想があれば追加
+        const userComment = diagnosisTextarea.value.trim();
+        if (userComment) {
+            feedbackMessage += `\n\nあなたの感想: ${userComment}`;
+        }
+
+
+        diagnosisFeedbackElement.innerHTML = `<strong>${feedbackTitle}</strong><br>${feedbackMessage.replace(/\n/g, '<br>')}`; // 改行を<br>に変換して表示
+
+        diagnosisQuestions.style.display = 'none';
+        diagnosisResults.style.display = 'block';
+
+        // 感想をクリア (次の診断のために)
+        diagnosisTextarea.value = '';
+    });
+}
+
+// もう一度診断するボタンのイベントリスナー
+if (retakeDiagnosisButton) {
+    retakeDiagnosisButton.addEventListener('click', () => {
+        diagnosisResults.style.display = 'none';
+        diagnosisIntro.style.display = 'block'; // 最初に戻る
+        harassmentDiagnosisForm.reset(); // フォームをリセット
+        // 必要であれば、診断スコアやフィードバック表示を初期化
+        diagnosisScoreElement.textContent = '診断スコア: -';
+        diagnosisFeedbackElement.textContent = 'フィードバック: -';
+    });
+}
         }
     });
 }
