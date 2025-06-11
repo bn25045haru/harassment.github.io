@@ -16,47 +16,28 @@
             </div>
             <div class="sidebar-nav">
                 <ul>
-                    <li>
-                        <a href="#" data-section="home-section" class="active">
-                            <i class="fas fa-home"></i>ホーム
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="register-section">
-                            <i class="fas fa-user-plus"></i>新規登録
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="diagnosis-section">
-                            <i class="fas fa-heartbeat"></i>ハラスメント診断
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="dm-section">
-                            <i class="fas fa-envelope"></i>DM
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="search-section">
-                            <i class="fas fa-search"></i>検索
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="notifications-section">
-                            <i class="fas fa-bell"></i>通知
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="profile-section">
-                            <i class="fas fa-user"></i>プロフィール
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-section="settings-section">
-                            <i class="fas fa-cog"></i>設定
-                        </a>
-                    </li>
-                </ul>
+    <li>
+        <a href="#" data-section="home-section">
+            <i class="fas fa-home"></i>ホーム
+        </a>
+    </li>
+    <li id="nav-register-li"> <a href="#" data-section="register-section" id="nav-register-link">
+            <i class="fas fa-user-plus"></i>新規登録
+        </a>
+    </li>
+    <li id="nav-login-li"> <a href="#" data-section="login-section" id="nav-login-link">
+            <i class="fas fa-sign-in-alt"></i>ログイン
+        </a>
+    </li>
+    <li id="nav-logout-li" style="display: none;"> <a href="#" id="nav-logout-link"> <i class="fas fa-sign-out-alt"></i>ログアウト
+        </a>
+    </li>
+    <li>
+        <a href="#" data-section="diagnosis-section">
+            <i class="fas fa-stethoscope"></i>ハラスメント診断
+        </a>
+    </li>
+    </ul>
             </div>
             <button class="tweet-button">投稿する</button>
             <div class="user-profile-small">
@@ -93,6 +74,18 @@
                     <input type="password" id="register-password" placeholder="パスワード" required>
                     <button id="register-submit-button" class="submit-post-button">登録</button>
                 </div>
+            </div>
+
+            <div id="login-section" class="content-section">
+                <div class="content-header">
+                  <h2>ログイン</h2>
+                </div>
+                 <div class="login-form-container">
+                     <input type="email" id="login-email" placeholder="メールアドレス" required>
+                     <input type="password" id="login-password" placeholder="パスワード" required>
+                        <button id="login-submit-button" class="submit-post-button">ログイン</button>
+                     <p class="switch-link">アカウントをお持ちでない方は<a href="#" data-section="register-section">こちら</a></p>
+                 </div>
             </div>
 
             <div id="diagnosis-section" class="content-section">
