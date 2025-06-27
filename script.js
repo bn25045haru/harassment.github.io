@@ -182,7 +182,7 @@ async function checkLoginStatusAndUpdateUI() {
 }
 
 
-// Function to handle post submission (イベントリスナーを関数として定義)
+// Function to handle post submission
 const submitPostHandler = async () => {
     const postText = document.getElementById('post-textarea').value;
     if (!postText.trim()) {
@@ -191,13 +191,15 @@ const submitPostHandler = async () => {
     }
 
     try {
+        // Post content to the server
+        // The AI analysis is now handled on the backend (posts.php)
         const response = await fetch('api/posts.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                content: postText // user_id はPHP側でセッションから取得
+                content: postText
             })
         });
 
@@ -206,7 +208,7 @@ const submitPostHandler = async () => {
         if (result.success) {
             alert('投稿が成功しました！');
             document.getElementById('post-textarea').value = ''; // Clear textarea
-            fetchPosts(); // Refresh posts
+            fetchPosts(); // Refresh posts to display the new one
         } else {
             alert('投稿に失敗しました: ' + result.message);
         }
@@ -216,52 +218,67 @@ const submitPostHandler = async () => {
     }
 };
 
-// Initial setup for submitPostButton (DOMContentLoadedで再設定されるので、初期設定は不要だが、念のため残す)
-const submitPostButton = document.getElementById('submit-post-button');
-if (submitPostButton) {
-    submitPostButton.addEventListener('click', submitPostHandler);
-}
+// Function to fetch and display posts from the server
+async function fetchPosts() {
+    try {
+        const postsList = document.getElementById('posts-list');
+        // Clear existing posts to prevent duplicates on refresh
+        postsList.innerHTML = ''; 
 
+        const response = await fetch('api/posts.php', { method: 'GET' });
+        const posts = await response.json();
 
-// User Registration Functionality
-const registerSubmitButton = document.getElementById('register-submit-button');
-if (registerSubmitButton) {
-    registerSubmitButton.addEventListener('click', async () => {
-        const username = document.getElementById('register-username').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
+        if (posts.success && posts.data.length > 0) {
+            posts.data.forEach(post => {
+                const postItem = document.createElement('div');
+                postItem.classList.add('post-item');
+                
+                // --- Dynamic HTML for AI feedback ---
+                let aiFeedbackHtml = '';
+                if (post.ai_score !== null && post.ai_feedback) {
+                    const score = post.ai_score;
+                    let feedbackClass = 'feedback-normal'; // Default class
+                    if (score >= 70) {
+                        feedbackClass = 'feedback-danger'; // High score (70% or more)
+                    } else if (score >= 50) {
+                        feedbackClass = 'feedback-warning'; // Medium score (50% or more)
+                    }
+                    
+                    aiFeedbackHtml = `
+                        <div class="post-feedback ${feedbackClass}">
+                            <span class="feedback-score">ハラスメント度: ${score}%</span>
+                            <span class="feedback-text">AI判断: ${post.ai_feedback}</span>
+                        </div>
+                    `;
+                }
 
-        if (!username || !email || !password) {
-            alert('全ての項目を入力してください。');
-            return;
-        }
-
-        try {
-            const response = await fetch('api/register.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, email, password })
+                // --- Build the post HTML ---
+                postItem.innerHTML = `
+                    <img src="images/avatar.png" alt="User Avatar" class="avatar-large">
+                    <div class="post-content">
+                        <div class="post-header">
+                            <span class="display-name">${post.username}</span>
+                            <span class="username">@${post.username}</span>
+                            <span class="timestamp">${post.created_at}</span>
+                        </div>
+                        <p class="post-text">${post.content}</p>
+                        ${aiFeedbackHtml}
+                        <div class="post-actions">
+                            <span class="action-item"><i class="far fa-comment"></i> 0</span>
+                            <span class="action-item"><i class="fas fa-retweet"></i> 0</span>
+                            <span class="action-item"><i class="far fa-heart"></i> 0</span>
+                            <span class="action-item"><i class="fas fa-share"></i></span>
+                        </div>
+                    </div>
+                `;
+                postsList.appendChild(postItem);
             });
-
-            const result = await response.json();
-
-            if (result.success) {
-                alert(result.message + ' ログインして投稿を開始しましょう！');
-                // Clear form and go back to home or login page
-                document.getElementById('register-username').value = '';
-                document.getElementById('register-email').value = '';
-                document.getElementById('register-password').value = '';
-                showSection('login-section'); // 登録後、ログイン画面へ遷移
-            } else {
-                alert('登録失敗: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Error during registration:', error);
-            alert('登録中にエラーが発生しました。ネットワーク接続を確認してください。');
+        } else {
+            postsList.innerHTML = '<p class="no-posts">まだ投稿はありません。</p>';
         }
-    });
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+    }
 }
 
 // User Login Functionality
